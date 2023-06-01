@@ -560,15 +560,15 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   }
 
   public Object visitPrivateDeclaration(PrivateDeclaration ast, Object o) {
-    // Se agrega a la pila publica
+    
     idTable.pushPublic();
     ast.D1.visit(this, null);
 
-    // Se agrega unicamente a la pila privado
+    
     idTable.pushPrivate();
     ast.D2.visit(this, null);
 
-    // Se cierra la pila privada
+    
     idTable.closePrivate();
     return null;
   }  
@@ -1274,13 +1274,13 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     public Object visitVarDeclarationBecomes(VarDeclarationBecomes aThis, Object o) {
          TypeDenoter eType = (TypeDenoter) aThis.Ex.visit(this, null);
 
-        // El tipo de dato del identificador es el de la expresion
+        
         aThis.E = eType;
 
-        // Ingresar el identificador a la tabla
+        
         idTable.enter(aThis.I.spelling, aThis);
 
-        // Determinar si el identificador se encuentra duplicado
+        
         if (aThis.duplicated)
           reporter.reportError("identifier \"%\" already declared",
               aThis.I.spelling, aThis.position);
@@ -1331,50 +1331,50 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 // for Id from Exp1 to Exp2 do Com end
     @Override
     public Object visitForBecomesAST(ForBecomesAST aThis, Object o) {
-        aThis.ForBecomes.visit(this, null); // exp1
-        aThis.E.visit(this, null); // exp2
-        idTable.openScope(); // Se inicia el scope para el com y ids.
+        aThis.ForBecomes.visit(this, null); 
+        aThis.E.visit(this, null); 
+        idTable.openScope(); 
         
-        idTable.enter(aThis.ForBecomes.I.spelling, aThis.ForBecomes); // ingresa el id del for
+        idTable.enter(aThis.ForBecomes.I.spelling, aThis.ForBecomes); 
         if (aThis.ForBecomes.duplicated)
           reporter.reportError("identifier \"%\" already declared", aThis.I.spelling, aThis.position);
 
         aThis.DoC.visit(this, null); // command
-        idTable.closeScope(); // Se cierra el scope.
+        idTable.closeScope(); 
         return null;
     }
      // for Id from Exp1 to Exp2 while Exp3 do Com end
     @Override
     public Object visitRepeatForWhile(RepeatForWhile aThis, Object o) {
-    aThis.ForBecomes.visit(this, null); // from exp1
-    aThis.E.visit(this, null); // To exp2
+    aThis.ForBecomes.visit(this, null); 
+    aThis.E.visit(this, null);
 
-    idTable.openScope(); // Se inicia el scope, para los id y el com.
-    idTable.enter(aThis.ForBecomes.I.spelling, aThis.ForBecomes); // ingresa el id del for
+    idTable.openScope(); 
+    idTable.enter(aThis.ForBecomes.I.spelling, aThis.ForBecomes); 
     if (aThis.ForBecomes.duplicated)
       reporter.reportError("identifier \"%\" already declared", aThis.I.spelling, aThis.position);
 
     aThis.whileC.E.visit(this, null);
     aThis.whileC.C.visit(this, null);
-    //aThis.whileC.visit(this, null); // while exp do command (exp3)
-    idTable.closeScope(); // Se cierra el scope.
+    
+    idTable.closeScope(); 
     return null;
     }
     // Autores: Gabriel Mora
   // for Id from Exp1 to Exp2 until Exp3 do Com end
     @Override
     public Object visitRepeatForUntil(RepeatForUntil aThis, Object o) {
-        aThis.ForBecomes.visit(this, null); // from exp1
-        aThis.E.visit(this, null); // To exp2
-        idTable.openScope(); // Se inicia el scope para los id y el com.
+        aThis.ForBecomes.visit(this, null); 
+        aThis.E.visit(this, null);
+        idTable.openScope(); 
       
 
-        idTable.enter(aThis.ForBecomes.I.spelling, aThis.ForBecomes); // ingresa el id del for
+        idTable.enter(aThis.ForBecomes.I.spelling, aThis.ForBecomes); 
         if (aThis.ForBecomes.duplicated)
           reporter.reportError("identifier \"%\" already declared", aThis.I.spelling, aThis.position);
 
-        aThis.UntilC.visit(this, null); // until exp do command (exp3)
-        idTable.closeScope(); // Se cierra el scope.
+        aThis.UntilC.visit(this, null); 
+        idTable.closeScope(); 
         return null;
     }    
     @Override
