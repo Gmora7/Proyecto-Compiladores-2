@@ -319,7 +319,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     ast.C2.visit(this, null);
     return null;
   }
-  //Repeat while Exp do Com end
+  //Autor:
   public Object visitWhileCommand(WhileCommand ast, Object o) {
     TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
     if (!eType.equals(StdEnvironment.booleanType))
@@ -1213,7 +1213,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
         aThis.UntilC.visit(this, aThis);
         return null;
     }
-    // repeat until Exp do Com end
+    //Autor:
     @Override
     public Object visitUntilCommand(UntilCommand aThis, Object o) {
        TypeDenoter eType = (TypeDenoter) aThis.I.visit(this, null);
@@ -1247,7 +1247,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
         }
         return null;
     }
-     // Repeat do Com while Exp end
+     //Autor: 
     @Override
     public Object visitRepeatDoWhileCommand(RepeatDoWhileAST aThis, Object o) {
     RepeatDeclaration repeat = new RepeatDeclaration(dummyPos);
@@ -1295,7 +1295,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
         }
         return null;
     }
-     //repeat do com until exp end
+     //Autor: 
     @Override
     public Object visitRepeatDoUntilCommand(RepeatDoUntilAST aThis, Object o) {
         RepeatDeclaration repeat = new RepeatDeclaration(dummyPos);
@@ -1328,7 +1328,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
         return null;
     }
-// for Id from Exp1 to Exp2 do Com end
+//Autor:
     @Override
     public Object visitForBecomesAST(ForBecomesAST aThis, Object o) {
         aThis.ForBecomes.visit(this, null); 
@@ -1343,7 +1343,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
         idTable.closeScope(); 
         return null;
     }
-     // for Id from Exp1 to Exp2 while Exp3 do Com end
+     //Autor: 
     @Override
     public Object visitRepeatForWhile(RepeatForWhile aThis, Object o) {
     aThis.ForBecomes.visit(this, null); 
@@ -1360,7 +1360,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     idTable.closeScope(); 
     return null;
     }
-    // Autores: Gabriel Mora
+    //Autor: Gabriel Mora
   // for Id from Exp1 to Exp2 until Exp3 do Com end
     @Override
     public Object visitRepeatForUntil(RepeatForUntil aThis, Object o) {
