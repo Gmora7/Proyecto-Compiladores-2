@@ -280,7 +280,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
     Declaration binding = (Declaration) ast.I.visit(this, null);
     if (binding == null){
-        System.out.println(1);
+//        System.out.println(1);
       reportUndeclared(ast.I);
     }
     else if (binding instanceof ProcDeclaration) {
@@ -375,7 +375,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     Declaration binding = (Declaration) ast.O.visit(this, null);
 
     if (binding == null){
-      System.out.println(2);  
+//      System.out.println(2);  
       reportUndeclared(ast.O);
     }
     else {
@@ -402,7 +402,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   public Object visitCallExpression(CallExpression ast, Object o) {
     Declaration binding = (Declaration) ast.I.visit(this, null);
     if (binding == null) {
-        System.out.println(3);
+//        System.out.println(3);
       reportUndeclared(ast.I);
       ast.type = StdEnvironment.errorType;
     } else if (binding instanceof FuncDeclaration) {
@@ -465,7 +465,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
     Declaration binding = (Declaration) ast.O.visit(this, null);
     if (binding == null) {
-        System.out.println(4);
+//        System.out.println(4);
       reportUndeclared(ast.O);
       ast.type = StdEnvironment.errorType;
     } else if (! (binding instanceof UnaryOperatorDeclaration))
@@ -697,7 +697,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
     Declaration binding = (Declaration) ast.I.visit(this, null);
     if (binding == null){
-        System.out.println(5);
+//        System.out.println(5);
       reportUndeclared (ast.I);
     }
     else if (! (binding instanceof FuncDeclaration ||
@@ -732,7 +732,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
     Declaration binding = (Declaration) ast.I.visit(this, null);
     if (binding == null){
-        System.out.println(6);
+//        System.out.println(6);
       reportUndeclared (ast.I);
     }
     else if (! (binding instanceof ProcDeclaration ||
@@ -830,7 +830,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   public Object visitSimpleTypeDenoter(SimpleTypeDenoter ast, Object o) {
     Declaration binding = (Declaration) ast.I.visit(this, null);
     if (binding == null) {
-        System.out.println(7);
+//        System.out.println(7);
       reportUndeclared (ast.I);
       return StdEnvironment.errorType;
     } else if (! (binding instanceof TypeDeclaration)) {
@@ -925,7 +925,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     ast.type = StdEnvironment.errorType;
     Declaration binding = (Declaration) ast.I.visit(this, null);
     if (binding == null){
-        System.out.println(8);
+//        System.out.println(8);
       reportUndeclared(ast.I);
     }
     else
@@ -1009,7 +1009,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   // has not been declared.
 
   private void reportUndeclared (Terminal leaf) {
-      System.out.println("Ini");
+//      System.out.println("Ini");
      
     reporter.reportError("\"%\" is not declared", leaf.spelling, leaf.position);
   }
@@ -1361,7 +1361,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     return null;
     }
     //Autor: Gabriel Mora
-  // for Id from Exp1 to Exp2 until Exp3 do Com end
+
     @Override
     public Object visitRepeatForUntil(RepeatForUntil aThis, Object o) {
         aThis.ForBecomes.visit(this, null); 

@@ -94,22 +94,19 @@ public final class Scanner {
 
     case ' ': case '\r': 
       takeIt();
-      comentario= "&nbsp;";
-      archivoHTML.escribir(comentario);
+      archivoHTML.escribir("&nbsp;");
       break;
       
     case '\n':
         takeIt();
-        comentario= "<br></br>";
-        archivoHTML.escribir(comentario);
+        archivoHTML.escribir("<br></br>");
         break;
         
     case '\t':
         takeIt();
-        comentario= "&nbsp;&nbsp;&nbsp;&nbsp;";
-        archivoHTML.escribir(comentario);
+        archivoHTML.escribir("&nbsp;&nbsp;&nbsp;&nbsp;");
     }
-  }
+  }//hola
 
   private int scanToken() {
     String linea;
