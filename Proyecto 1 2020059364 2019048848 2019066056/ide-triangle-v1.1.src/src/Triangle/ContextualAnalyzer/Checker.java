@@ -1408,7 +1408,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
         return null;
     }
     
-    /*
+    
     private void agregarFunc(FuncDeclaration aThis) {
 
     aThis.T = (TypeDenoter) aThis.T.visit(this, null);
@@ -1503,17 +1503,14 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     aThis.D2.visit(this, null);
     return null;
   }
-*/
+
     @Override
     public Object visitCompoundSingleDeclaration(CompoundSingleDeclaration aThis, Object o) {
         aThis.dAST.visit(this, null);
         return null;
     }
 
-    @Override
-    public Object visitSequentialDeclarationProcFuncs(SequentialDeclarationProcFuncs aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+
   
 
 }
