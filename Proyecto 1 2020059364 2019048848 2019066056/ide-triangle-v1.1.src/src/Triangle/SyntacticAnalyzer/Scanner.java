@@ -109,8 +109,7 @@ public final class Scanner {
         comentario= "&nbsp;&nbsp;&nbsp;&nbsp;";
         archivoHTML.escribir(comentario);
     }
-  }
-
+  }//comentarios
   private int scanToken() {
     String linea;
     switch (currentChar) {
