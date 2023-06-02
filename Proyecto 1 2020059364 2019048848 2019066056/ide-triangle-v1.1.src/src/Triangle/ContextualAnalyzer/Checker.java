@@ -1361,7 +1361,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     return null;
     }
     //Autor: Gabriel Mora
-  // for Id from Exp1 to Exp2 until Exp3 do Com end
+
     @Override
     public Object visitRepeatForUntil(RepeatForUntil aThis, Object o) {
         aThis.ForBecomes.visit(this, null); 
