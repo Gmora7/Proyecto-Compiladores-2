@@ -1,8 +1,0 @@
-let
-	var x : Integer
-in 
-repeat 
-  until x < 10
-  do x:= x + 1
-end
-end

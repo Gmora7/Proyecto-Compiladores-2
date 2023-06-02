@@ -1,2 +1,0 @@
-repeat times do x:= x + 1
-end
