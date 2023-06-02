@@ -697,11 +697,11 @@ public class TreeVisitor implements Visitor {
 
     @Override
     public Object visitSequentialDeclarationProcFuncs(SequentialDeclarationProcFuncs aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return(createBinary("Proc Funcs Declaration", aThis.D1, aThis.D2));
     }
 
     @Override
     public Object visitCompoundSingleDeclaration(CompoundSingleDeclaration aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       return(createUnary("Compound Single Declaration", aThis.dAST));
     }
 }

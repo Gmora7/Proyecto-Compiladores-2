@@ -903,11 +903,23 @@ private void addLine(String line) {
 
     @Override
     public Object visitSequentialDeclarationProcFuncs(SequentialDeclarationProcFuncs aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        addLine("<ProcFuncDeclaration>");
+        
+        aThis.D1.visit(this, null);
+        aThis.D2.visit(this, null);
+      
+        addLine("</ProcFuncDeclaration>");
+        return(null);
     }
-
+   
     @Override
     public Object visitCompoundSingleDeclaration(CompoundSingleDeclaration aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       addLine("<CompoundSingleDeclaration>");
+      
+        aThis.dAST.visit(this, null);
+      
+        addLine("</CompoundSingleDeclaration>");
+        return(null);
     }
+
 }
