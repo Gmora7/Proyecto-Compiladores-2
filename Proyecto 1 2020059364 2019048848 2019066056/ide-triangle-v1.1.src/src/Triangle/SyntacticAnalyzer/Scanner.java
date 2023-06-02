@@ -106,7 +106,7 @@ public final class Scanner {
         takeIt();
         archivoHTML.escribir("&nbsp;&nbsp;&nbsp;&nbsp;");
     }
-  }
+  }//hola
 
   private int scanToken() {
     String linea;
