@@ -60,6 +60,7 @@ public final class IdentificationTable {
   // duplicated is set to to true iff there is already an entry for the
   // same identifier at the current level.
 
+  //Autor: Gabriel Mora
   public void enter (String id, Declaration attr) {
 
     IdEntry entry = this.latest;

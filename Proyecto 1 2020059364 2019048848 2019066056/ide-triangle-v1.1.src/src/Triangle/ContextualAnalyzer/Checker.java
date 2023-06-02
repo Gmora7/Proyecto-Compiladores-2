@@ -280,7 +280,6 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
     Declaration binding = (Declaration) ast.I.visit(this, null);
     if (binding == null){
-//        System.out.println(1);
       reportUndeclared(ast.I);
     }
     else if (binding instanceof ProcDeclaration) {
@@ -319,7 +318,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     ast.C2.visit(this, null);
     return null;
   }
-  //Autor:
+  //Autor: Gabriel Mora
   public Object visitWhileCommand(WhileCommand ast, Object o) {
     TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
     if (!eType.equals(StdEnvironment.booleanType))
@@ -374,8 +373,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     TypeDenoter e2Type = (TypeDenoter) ast.E2.visit(this, null);
     Declaration binding = (Declaration) ast.O.visit(this, null);
 
-    if (binding == null){
-//      System.out.println(2);  
+    if (binding == null){ 
       reportUndeclared(ast.O);
     }
     else {
@@ -402,7 +400,6 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   public Object visitCallExpression(CallExpression ast, Object o) {
     Declaration binding = (Declaration) ast.I.visit(this, null);
     if (binding == null) {
-//        System.out.println(3);
       reportUndeclared(ast.I);
       ast.type = StdEnvironment.errorType;
     } else if (binding instanceof FuncDeclaration) {
@@ -465,7 +462,6 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
     Declaration binding = (Declaration) ast.O.visit(this, null);
     if (binding == null) {
-//        System.out.println(4);
       reportUndeclared(ast.O);
       ast.type = StdEnvironment.errorType;
     } else if (! (binding instanceof UnaryOperatorDeclaration))
@@ -558,17 +554,15 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
     return null;
   }
-
+//Autor: María José Porras
   public Object visitPrivateDeclaration(PrivateDeclaration ast, Object o) {
     
     idTable.pushPublic();
     ast.D1.visit(this, null);
 
-    
     idTable.pushPrivate();
     ast.D2.visit(this, null);
 
-    
     idTable.closePrivate();
     return null;
   }  
@@ -697,7 +691,6 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
     Declaration binding = (Declaration) ast.I.visit(this, null);
     if (binding == null){
-//        System.out.println(5);
       reportUndeclared (ast.I);
     }
     else if (! (binding instanceof FuncDeclaration ||
@@ -732,7 +725,6 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
     Declaration binding = (Declaration) ast.I.visit(this, null);
     if (binding == null){
-//        System.out.println(6);
       reportUndeclared (ast.I);
     }
     else if (! (binding instanceof ProcDeclaration ||
@@ -830,7 +822,6 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   public Object visitSimpleTypeDenoter(SimpleTypeDenoter ast, Object o) {
     Declaration binding = (Declaration) ast.I.visit(this, null);
     if (binding == null) {
-//        System.out.println(7);
       reportUndeclared (ast.I);
       return StdEnvironment.errorType;
     } else if (! (binding instanceof TypeDeclaration)) {
@@ -925,7 +916,6 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     ast.type = StdEnvironment.errorType;
     Declaration binding = (Declaration) ast.I.visit(this, null);
     if (binding == null){
-//        System.out.println(8);
       reportUndeclared(ast.I);
     }
     else
@@ -947,8 +937,6 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     } else if (binding instanceof ForBecomesCommand) {
         ast.type = ((ForBecomesCommand) binding).E.type;
         ast.variable = true; // Se agrega como una variable
-      
-      
       
     }else
         reporter.reportError ("\"%\" is not a const or var identifier",
@@ -1009,7 +997,6 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   // has not been declared.
 
   private void reportUndeclared (Terminal leaf) {
-//      System.out.println("Ini");
      
     reporter.reportError("\"%\" is not declared", leaf.spelling, leaf.position);
   }
@@ -1213,7 +1200,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
         aThis.UntilC.visit(this, aThis);
         return null;
     }
-    //Autor:
+    //Autor: Gabriel Mora
     @Override
     public Object visitUntilCommand(UntilCommand aThis, Object o) {
        TypeDenoter eType = (TypeDenoter) aThis.I.visit(this, null);
@@ -1247,7 +1234,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
         }
         return null;
     }
-     //Autor: 
+     //Autor: Gabriel Mora
     @Override
     public Object visitRepeatDoWhileCommand(RepeatDoWhileAST aThis, Object o) {
     RepeatDeclaration repeat = new RepeatDeclaration(dummyPos);
@@ -1274,13 +1261,10 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     public Object visitVarDeclarationBecomes(VarDeclarationBecomes aThis, Object o) {
          TypeDenoter eType = (TypeDenoter) aThis.Ex.visit(this, null);
 
-        
         aThis.E = eType;
 
-        
         idTable.enter(aThis.I.spelling, aThis);
 
-        
         if (aThis.duplicated)
           reporter.reportError("identifier \"%\" already declared",
               aThis.I.spelling, aThis.position);
@@ -1295,7 +1279,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
         }
         return null;
     }
-     //Autor: 
+    //Autor: Gabriel Mora
     @Override
     public Object visitRepeatDoUntilCommand(RepeatDoUntilAST aThis, Object o) {
         RepeatDeclaration repeat = new RepeatDeclaration(dummyPos);
@@ -1319,7 +1303,6 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
         return null;
     }
     
-    
     @Override
     public Object visitForBecomesCommand(ForBecomesCommand aThis, Object o) {
        TypeDenoter eType = (TypeDenoter) aThis.E.visit(this, null);
@@ -1328,7 +1311,8 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
         return null;
     }
-//Autor:
+    
+//Autor: María José Porras
     @Override
     public Object visitForBecomesAST(ForBecomesAST aThis, Object o) {
         aThis.ForBecomes.visit(this, null); 
@@ -1343,7 +1327,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
         idTable.closeScope(); 
         return null;
     }
-     //Autor: 
+    //Autor: María José Porras
     @Override
     public Object visitRepeatForWhile(RepeatForWhile aThis, Object o) {
     aThis.ForBecomes.visit(this, null); 
@@ -1360,15 +1344,14 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     idTable.closeScope(); 
     return null;
     }
-    //Autor: Gabriel Mora
-
+    
+    //Autor: María José Porras
     @Override
     public Object visitRepeatForUntil(RepeatForUntil aThis, Object o) {
         aThis.ForBecomes.visit(this, null); 
         aThis.E.visit(this, null);
         idTable.openScope(); 
       
-
         idTable.enter(aThis.ForBecomes.I.spelling, aThis.ForBecomes); 
         if (aThis.ForBecomes.duplicated)
           reporter.reportError("identifier \"%\" already declared", aThis.I.spelling, aThis.position);
@@ -1377,6 +1360,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
         idTable.closeScope(); 
         return null;
     }    
+    
     @Override
     public Object visitDotDCommandAST(DotDCommand aThis, Object o) {
         TypeDenoter eType = (TypeDenoter) aThis.CLC.visit(this, null);
@@ -1396,7 +1380,8 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
           aThis.dAST.visit(this, null);
     return null;
     }
-//verificar
+    
+    //Autor: Celina Madrigal
     @Override
     public Object visitVarDeclarationBecomes(VarDeclaration ast, Object o) {
         ast.T = (TypeDenoter) ast.T.visit(this, null);
@@ -1408,36 +1393,30 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
         return null;
     }
     
-    
     private void agregarFunc(FuncDeclaration aThis) {
 
     aThis.T = (TypeDenoter) aThis.T.visit(this, null);
 
-    // Agregar a la tabla
     idTable.enter(aThis.I.spelling, aThis); // permits recursion
 
-    // Determinar si el identificador esta repetido
     if (aThis.duplicated) {
       reporter.reportError("identifier \"%\" already declared",
           aThis.I.spelling, aThis.position);
     }
-
+    
     idTable.openScope();
 
     aThis.FPS.visit(this, null);
 
     idTable.closeScope();
 
-    // Colocar como visitado
     aThis.visited = true;
   }
     
   private void agregarProc(ProcDeclaration aThis) {
-
-    // Agregar a la tabla
+      
     idTable.enter(aThis.I.spelling, aThis);
 
-    // Determinar si el identificador esta repetido
     if (aThis.duplicated) {
       reporter.reportError("identifier \"%\" already declared",
           aThis.I.spelling, aThis.position);
@@ -1446,14 +1425,13 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     idTable.openScope();
 
     aThis.FPS.visit(this, null);
-    // aThis.C.visit(this, null); Bug
 
     idTable.closeScope();
 
-    // Colocar como visitado
     aThis.visited = true;
   }
   
+  //Autor: Celina Madrigal 
   private void visitarProcFuncs(SequentialDeclarationProcFuncs aThis) {
     if (aThis.D2 instanceof FuncDeclaration) {
       agregarFunc((FuncDeclaration) aThis.D2);
@@ -1465,23 +1443,23 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
       }
     }
   }
+  
+  //Autor: Celina Madrigal 
   @Override
   public Object visitSequentialDeclarationProcFuncs(SequentialDeclarationProcFuncs aThis, Object o) {
 
-    // Caso base para la recursion
     if (aThis.D2 instanceof ProcDeclaration && ((ProcDeclaration) aThis.D2).visited) {
       return null;
     }
-    // Caso base para la recursion
+    
     if (aThis.D2 instanceof FuncDeclaration && ((FuncDeclaration) aThis.D2).visited) {
       return null;
     }
-
-    // Determina si es un proc funcs
+    
     if (aThis.D1 instanceof SequentialDeclarationProcFuncs) {
       visitarProcFuncs(aThis);
     }
-    // Otros casos
+    
     else {
       if (aThis.D1 instanceof ProcDeclaration) {
         agregarProc((ProcDeclaration) aThis.D1);
@@ -1498,7 +1476,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
         }
       }
     }
-    // Vistar los hijos
+    
     aThis.D1.visit(this, null);
     aThis.D2.visit(this, null);
     return null;
@@ -1509,8 +1487,5 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
         aThis.dAST.visit(this, null);
         return null;
     }
-
-
-  
 
 }
