@@ -72,44 +72,23 @@ public final class Scanner {
   // scanSeparator skips a single separator.
 
   private void scanSeparator() {
-    String comentario = " <font style='padding-left:1em' color=\"#50C878\"><tt> ! ";
     switch (currentChar) {
     case '!':
       {
         takeIt();
-        while ((currentChar != SourceFile.EOL) && (currentChar != SourceFile.EOT)){
-            comentario += currentChar;
-            takeIt();  
-        }
-        if (currentChar == SourceFile.EOL){
-          comentario += "</tt></font><br></br>";
-          archivoHTML.escribir(comentario);
+        while ((currentChar != SourceFile.EOL) && (currentChar != SourceFile.EOT))
           takeIt();
-          break;
-        }
-        comentario += "</tt></font><br></br>";
-        archivoHTML.escribir(comentario);
+        if (currentChar == SourceFile.EOL)
+          takeIt();
       }
       break;
 
-    case ' ': case '\r': 
+    case ' ': case '\n': case '\r': case '\t':
       takeIt();
-      comentario= "&nbsp;";
-      archivoHTML.escribir(comentario);
       break;
-      
-    case '\n':
-        takeIt();
-        comentario= "<br></br>";
-        archivoHTML.escribir(comentario);
-        break;
-        
-    case '\t':
-        takeIt();
-        comentario= "&nbsp;&nbsp;&nbsp;&nbsp;";
-        archivoHTML.escribir(comentario);
     }
-  }//comentarios
+  }
+
   private int scanToken() {
     String linea;
     switch (currentChar) {
