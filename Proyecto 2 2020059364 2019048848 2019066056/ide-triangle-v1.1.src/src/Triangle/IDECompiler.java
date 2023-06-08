@@ -71,12 +71,12 @@ public class IDECompiler {
         //Autor: Celina Madrigal Murillo
             ArchivoXML.crearXML(rootAST, nombreArchivo+"XML"); 
             if (report.numErrors == 0) {
-                //System.out.println("Code Generation ...");
-                //Encoder encoder = new Encoder(report);
-                //encoder.encodeRun(rootAST, false);
+                System.out.println("Code Generation ...");
+                Encoder encoder = new Encoder(report);
+                encoder.encodeRun(rootAST, false);
                 
                 if (report.numErrors == 0) {
-                    //encoder.saveObjectProgram(sourceName.replace(".tri", ".tam"));
+                    encoder.saveObjectProgram(sourceName.replace(".tri", ".tam"));
                     success = true;
                 }
             }
