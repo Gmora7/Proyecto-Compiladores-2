@@ -803,14 +803,16 @@ public final class Encoder implements Visitor {
 
   public Object visitIdentifier(Identifier ast, Object o) {
     Frame frame = (Frame) o;
-    if (ast.decl.entity instanceof KnownRoutine) {
+    if (ast.decl.entity == null) { //para la primera pasada del rec
+        emit(Machine.CALLop, 0, Machine.CBr, 0);
+    } else if (ast.decl.entity instanceof KnownRoutine) {
       ObjectAddress address = ((KnownRoutine) ast.decl.entity).address;
       emit(Machine.CALLop, displayRegister(frame.level, address.level),
-	   Machine.CBr, address.displacement);
+          Machine.CBr, address.displacement);
     } else if (ast.decl.entity instanceof UnknownRoutine) {
       ObjectAddress address = ((UnknownRoutine) ast.decl.entity).address;
       emit(Machine.LOADop, Machine.closureSize, displayRegister(frame.level,
-           address.level), address.displacement);
+          address.level), address.displacement);
       emit(Machine.CALLIop, 0, 0, 0);
     } else if (ast.decl.entity instanceof PrimitiveRoutine) {
       int displacement = ((PrimitiveRoutine) ast.decl.entity).displacement;
@@ -820,7 +822,7 @@ public final class Encoder implements Visitor {
       int displacement = ((EqualityRoutine) ast.decl.entity).displacement;
       emit(Machine.LOADLop, 0, 0, frame.size / 2);
       emit(Machine.CALLop, Machine.SBr, Machine.PBr, displacement);
-    }
+    } 
     return null;
   }
 
@@ -1241,12 +1243,6 @@ public final class Encoder implements Visitor {
         return null;
     }
 
-    /**
-     *
-     * @param aThis
-     * @param o
-     * @return
-     */
     @Override
     public Object visitVarDeclarationBecomes(VarDeclarationBecomes aThis, Object o) {
         Frame frame = (Frame) o;
@@ -1264,13 +1260,13 @@ public final class Encoder implements Visitor {
     @Override
     public Object visitRepeatDoUntilCommand(RepeatDoUntilAST aThis, Object o) {
         Frame frame = (Frame) o;
-    int loopAddr;
+        int loopAddr;
 
-    loopAddr = nextInstrAddr;
-    aThis.C.visit(this, frame);
-    aThis.DoUntil.E.visit(this, frame);
-    emit(Machine.JUMPIFop, Machine.falseRep, Machine.CBr, loopAddr);
-    return null;
+        loopAddr = nextInstrAddr;
+        aThis.C.visit(this, frame);
+        aThis.DoUntil.E.visit(this, frame);
+        emit(Machine.JUMPIFop, Machine.falseRep, Machine.CBr, loopAddr);
+        return null;
     } 
     
     @Override
@@ -1339,5 +1335,7 @@ public final class Encoder implements Visitor {
     public Object visitVarDeclarationBecomes(VarDeclaration ast, Object o) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    
     
 }
