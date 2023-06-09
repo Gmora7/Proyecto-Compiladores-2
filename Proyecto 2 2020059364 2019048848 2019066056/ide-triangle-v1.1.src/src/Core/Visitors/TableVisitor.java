@@ -797,7 +797,7 @@ public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
     
     @Override
     public Object visitRepeatUntilAST(RepeatUntilAST aThis, Object o) { 
-        aThis.I.visit(this, null);
+//        aThis.I.visit(this, null);
         aThis.UntilC.visit(this, null);
       
         return(null);
@@ -857,7 +857,7 @@ public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
 
     @Override
     public Object visitRepeatForWhile(RepeatForWhile aThis, Object o) { 
-        aThis.I.visit(this, null);
+//        aThis.I.visit(this, null);
         aThis.E.visit(this, null);
         aThis.ForBecomes.visit(this, null);
         aThis.whileC.visit(this, null);
@@ -867,7 +867,7 @@ public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
 
     @Override
     public Object visitRepeatForUntil(RepeatForUntil aThis, Object o) { 
-        aThis.I.visit(this, null);
+//        aThis.I.visit(this, null);
         aThis.E.visit(this, null);
         aThis.ForBecomes.visit(this, null);
         aThis.UntilC.visit(this, null);
@@ -892,7 +892,8 @@ public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
 
     @Override
     public Object visitDotDCommandLiteral(DotDCommandLiteral aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    aThis.CLC.visit(this, null);
+    return(null);
     }
 
     @Override
@@ -902,22 +903,37 @@ public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
 
     @Override
     public Object visitVarDeclarationBecomes(VarDeclaration ast, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try{
+            addIdentifier(ast.I.spelling,
+                            "KnownAddress",
+                            (ast.entity != null?ast.entity.size:0),
+                            ((KnownAddress)ast.entity).address.level,
+                            ((KnownAddress)ast.entity).address.displacement,
+                            -1);
+        }catch(NullPointerException e){}
+        ast.E.visit(this, null);
+      
+        return(null); 
     }
 
     @Override
     public Object visitRecDeclaration(RecDeclaration aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        aThis.dAST.visit(this, null);
+        return(null);
     }
 
     @Override
     public Object visitSequentialDeclarationProcFuncs(SequentialDeclarationProcFuncs aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        aThis.D1.visit(this, null);
+        aThis.D2.visit(this, null);
+      
+        return(null);
     }
 
     @Override
     public Object visitCompoundSingleDeclaration(CompoundSingleDeclaration aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        aThis.dAST.visit(this, null);
+        return(null);
     }
 
 }
