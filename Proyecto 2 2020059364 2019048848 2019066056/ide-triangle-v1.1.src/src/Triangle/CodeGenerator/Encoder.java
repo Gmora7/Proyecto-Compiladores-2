@@ -132,24 +132,25 @@ public final class Encoder implements Visitor {
 
 
   // Commands
+  @Override  
   public Object visitAssignCommand(AssignCommand ast, Object o) {
     Frame frame = (Frame) o;
     Integer valSize = (Integer) ast.E.visit(this, frame);
     encodeStore(ast.V, new Frame(frame, valSize), valSize);
     return null;
   }
-
+  @Override
   public Object visitCallCommand(CallCommand ast, Object o) {
     Frame frame = (Frame) o;
     Integer argsSize = (Integer) ast.APS.visit(this, frame);
     ast.I.visit(this, new Frame(frame.level, argsSize));
     return null;
   }
-
+  @Override
   public Object visitEmptyCommand(EmptyCommand ast, Object o) {
     return 0;
   }
-
+  @Override
   public Object visitIfCommand(IfCommand ast, Object o) {
     Frame frame = (Frame) o;
     int jumpifAddr, jumpAddr;
@@ -164,7 +165,7 @@ public final class Encoder implements Visitor {
     patch(jumpAddr, nextInstrAddr);
     return null; 
   }
-
+  @Override
   public Object visitLetCommand(LetCommand ast, Object o) {
     Frame frame = (Frame) o;
     int extraSize = ((Integer) ast.D.visit(this, frame));
@@ -173,19 +174,19 @@ public final class Encoder implements Visitor {
       emit(Machine.POPop, 0, 0, extraSize);
     return null;
   }
-
+  @Override
   public Object visitSequentialCommand(SequentialCommand ast, Object o) {
     ast.C1.visit(this, o);
     ast.C2.visit(this, o);
     return null;
   }
-  
+  @Override  
   public Object visitSequentialCases(SequentialCases ast, Object o) {
     ast.CC1.visit(this, o);
     ast.CC2.visit(this, o);
     return null;
   }
-
+  @Override
   public Object visitWhileCommand(WhileCommand ast, Object o) {
     Frame frame = (Frame) o;
     int jumpAddr, loopAddr;
@@ -199,6 +200,7 @@ public final class Encoder implements Visitor {
     emit(Machine.JUMPIFop, Machine.trueRep, Machine.CBr, loopAddr);
     return null;
   }
+  
   public Object visitTimesCommand(TimesCommand ast, Object o) {
     Frame frame = (Frame) o;
     int jumpAddr, loopAddr;
@@ -213,7 +215,8 @@ public final class Encoder implements Visitor {
     return null;
   }  
   
-   //Autores: Celina Madrigal Murillo, María José Porras Maroto y Gabriel Mora Estribí 
+   //Autores: Celina Madrigal Murillo, María José Porras Maroto y Gabriel Mora Estribí
+  @Override  
  public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object O){
     Frame frame = (Frame) O;
     
@@ -225,6 +228,7 @@ public final class Encoder implements Visitor {
     return 1;
     }
    //Autores: Celina Madrigal Murillo, María José Porras Maroto y Gabriel Mora Estribí
+   @Override
     public Object visitCaseRangeCommand(CaseRangeCommand ast, Object O){
        Frame frame = (Frame) O;
     int size,jmpaddr;
@@ -249,14 +253,17 @@ public final class Encoder implements Visitor {
     return 1;
     }
     
+      @Override
     public Object visitDotDCommand2(DotDCommand2 ast, Object obj){
        return null;
     }    
     
+      @Override
     public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
        return null;
     }
     //Autores: Celina Madrigal Murillo, María José Porras Maroto y Gabriel Mora Estribí
+  @Override    
     public Object visitCaseLiterals(CaseLiterals ast, Object obj){
          Frame frame = (Frame) obj;
     int size;
@@ -268,6 +275,7 @@ public final class Encoder implements Visitor {
     return size;
     }
 
+      @Override
     public Object visitCaseCommand(CaseCommand ast, Object obj){
         Frame frame = (Frame) obj;
         int size = (int) ast.CL.visit(this, frame);
@@ -276,6 +284,7 @@ public final class Encoder implements Visitor {
         System.out.println(jmpAddr-1);
         return size;
     }
+      @Override
     public Object visitCasesCommand(CasesCommand ast, Object obj){
         Frame frame = (Frame) obj;
         int size = 0;
@@ -287,11 +296,13 @@ public final class Encoder implements Visitor {
     return size;
     }
     
+      @Override
     public Object visitSelectCommand(SelectCommand ast, Object obj){
         Frame frame = (Frame) obj;
         return null;
     }
     
+  @Override    
     public Object visitSingleCaseRange(SingleCaseRange ast, Object obj){
         Frame frame = (Frame) obj;
         int size;
@@ -299,15 +310,18 @@ public final class Encoder implements Visitor {
         return size;
     }
     
+      @Override
     public Object visitSingleThen(SingleThen ast, Object obj){
         return null;
     }
     
+  @Override    
     public Object visitSingleCase(SingleCase ast, Object obj){
         Frame frame = (Frame) obj;
         return (int) ast.CC.visit(this, frame);
     }
     
+  @Override    
     public Object visitMultipleCaseRange(MultipleCaseRange ast, Object obj){
         Frame frame = (Frame) obj;
         int size;
@@ -320,10 +334,12 @@ public final class Encoder implements Visitor {
         return 1;
     }
     
+  @Override    
     public Object visitMultipleThen(MultipleThen ast, Object obj){
         return null;
     }
     
+  @Override    
     public Object visitMultipleCase(MultipleCase ast, Object obj){
         Frame frame = (Frame) obj;
         int size;
@@ -337,11 +353,12 @@ public final class Encoder implements Visitor {
     }
 //------------------------------------------------------------------------------------------
   // Expressions
+      @Override
   public Object visitArrayExpression(ArrayExpression ast, Object o) {
     ast.type.visit(this, null);
     return ast.AA.visit(this, o);
   }
-
+  @Override
   public Object visitBinaryExpression(BinaryExpression ast, Object o) {
     Frame frame = (Frame) o;
     Integer valSize = (Integer) ast.type.visit(this, null);
@@ -352,7 +369,7 @@ public final class Encoder implements Visitor {
     ast.O.visit(this, frame2);
     return valSize;
   }
-
+  @Override
   public Object visitCallExpression(CallExpression ast, Object o) {
     Frame frame = (Frame) o;
     Integer valSize = (Integer) ast.type.visit(this, null);
@@ -369,6 +386,7 @@ public final class Encoder implements Visitor {
     return valSize;
   }
 
+  
   public Object visitEmptyExpression(EmptyExpression ast, Object o) {
     return new Integer(0);
   }
@@ -1189,7 +1207,9 @@ public final class Encoder implements Visitor {
 
     @Override
     public Object visitDoCommandAST(DoCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Frame frame = (Frame) o;
+        aThis.C.visit(this, frame);
+        return null; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -1276,7 +1296,36 @@ public final class Encoder implements Visitor {
 
     @Override
     public Object visitForBecomesAST(ForBecomesAST aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Frame frame = (Frame) o;
+    
+    int last = (Integer) aThis.E.visit(this, frame);
+    frame = new Frame(frame, last);
+    
+    int first = (Integer) aThis.ForBecomes.E.visit(this, frame);
+    aThis.ForBecomes.entity = new UnknownValue(first, frame.level, frame.size);
+    frame = new Frame(frame, first);
+    
+    int jumpAddr, repeatAddr;
+    jumpAddr = nextInstrAddr; 
+    emit(Machine.JUMPop, 0, Machine.SBr, 0);
+    repeatAddr = nextInstrAddr;
+    
+    
+    aThis.DoC.C.visit(this, frame);
+    emit(Machine.CALLop, Machine.SBr, Machine.PBr, Machine.succDisplacement); 
+    
+
+    int evaluate = nextInstrAddr;
+    patch(jumpAddr, evaluate);
+    
+    emit(Machine.LOADop, 1, Machine.STr, -1);
+    emit(Machine.LOADop, 1, Machine.STr, -3);
+    emit(Machine.CALLop, 0, Machine.PBr, Machine.leDisplacement);
+    emit(Machine.JUMPIFop, Machine.trueRep, Machine.SBr, repeatAddr);
+
+    emit(Machine.POPop, 0, 0, first+last);
+
+    return null;
     }
 
     @Override
