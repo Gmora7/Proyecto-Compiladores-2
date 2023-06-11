@@ -93,6 +93,7 @@ public class Compiler {
             }
             if (reporter.numErrors == 0) {
                 System.out.println("Code Generation ...");
+                System.out.println("Compiler prueba");
                 encoder.encodeRun(theAST, showingTable);	// 3rd pass
             }
         }

@@ -151,7 +151,7 @@ public final class Encoder implements Visitor {
     return 0;
   }
   @Override
-  public Object visitIfCommand(IfCommand ast, Object o) {
+  public Object visitIfCommand(IfCommand ast, Object o) { 
     Frame frame = (Frame) o;
     int jumpifAddr, jumpAddr;
     ast.E.visit(this, frame);

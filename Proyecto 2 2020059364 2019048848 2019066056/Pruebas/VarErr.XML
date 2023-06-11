@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Program>
+<LetCommand>
+<CompoundSingleDeclaration>
+<VarDeclarationBecomes>
+<IntTypeDenoter>
+</IntTypeDenoter>
+<Identifier>
+</Identifier>
+</VarDeclarationBecomes>
+</CompoundSingleDeclaration>
+<CallCommand>
+<Identifier>
+</Identifier>
+<SingleActualParameterSequence>
+<ConstActualParameter>
+<VnameExpresssion>
+<SimpleVname>
+<Identifier>
+</Identifier>
+</SimpleVname>
+</VnameExpresssion>
+</ConstActualParameter>
+</SingleActualParameterSequence>
+</CallCommand>
+</LetCommand>
+</Program>
