@@ -903,17 +903,19 @@ public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
 
     @Override
     public Object visitVarDeclarationBecomes(VarDeclaration ast, Object o) {
-        try{
-            addIdentifier(ast.I.spelling,
-                            "KnownAddress",
-                            (ast.entity != null?ast.entity.size:0),
-                            ((KnownAddress)ast.entity).address.level,
-                            ((KnownAddress)ast.entity).address.displacement,
-                            -1);
-        }catch(NullPointerException e){}
-        ast.E.visit(this, null);
-      
-        return(null); 
+//        try{
+//            addIdentifier(ast.I.spelling,
+//                            "KnownAddress",
+//                            (ast.entity != null?ast.entity.size:0),
+//                            ((KnownAddress)ast.entity).address.level,
+//                            ((KnownAddress)ast.entity).address.displacement,
+//                            -1);
+//        }catch(NullPointerException e){}
+//        ast.E.visit(this, null);
+//      
+//        return(null);
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
     }
 
     @Override
