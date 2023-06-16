@@ -1297,35 +1297,26 @@ public final class Encoder implements Visitor {
     @Override
     public Object visitForBecomesAST(ForBecomesAST aThis, Object o) {
         Frame frame = (Frame) o;
-    
-    int last = (Integer) aThis.E.visit(this, frame);
-    frame = new Frame(frame, last);
-    
-    int first = (Integer) aThis.ForBecomes.E.visit(this, frame);
-    aThis.ForBecomes.entity = new UnknownValue(first, frame.level, frame.size);
-    frame = new Frame(frame, first);
-    
-    int jumpAddr, repeatAddr;
-    jumpAddr = nextInstrAddr; 
-    emit(Machine.JUMPop, 0, Machine.SBr, 0);
-    repeatAddr = nextInstrAddr;
-    
-    
-    aThis.DoC.C.visit(this, frame);
-    emit(Machine.CALLop, Machine.SBr, Machine.PBr, Machine.succDisplacement); 
-    
+        int last = (Integer) aThis.E.visit(this, frame);
+        frame = new Frame(frame, last);
+        int first = (Integer) aThis.ForBecomes.E.visit(this, frame);
+        aThis.ForBecomes.entity = new UnknownValue(first, frame.level, frame.size);
+        frame = new Frame(frame, first);
+        int jumpAddr, repeatAddr;
+        jumpAddr = nextInstrAddr; 
+        emit(Machine.JUMPop, 0, Machine.SBr, 0);
+        repeatAddr = nextInstrAddr;
+        aThis.DoC.C.visit(this, frame);
+        emit(Machine.CALLop, Machine.SBr, Machine.PBr, Machine.succDisplacement); 
+        int evaluate = nextInstrAddr;
+        patch(jumpAddr, evaluate);
+        emit(Machine.LOADop, 1, Machine.STr, -1);
+        emit(Machine.LOADop, 1, Machine.STr, -3);
+        emit(Machine.CALLop, 0, Machine.PBr, Machine.leDisplacement);
+        emit(Machine.JUMPIFop, Machine.trueRep, Machine.SBr, repeatAddr);
+        emit(Machine.POPop, 0, 0, first+last);
 
-    int evaluate = nextInstrAddr;
-    patch(jumpAddr, evaluate);
-    
-    emit(Machine.LOADop, 1, Machine.STr, -1);
-    emit(Machine.LOADop, 1, Machine.STr, -3);
-    emit(Machine.CALLop, 0, Machine.PBr, Machine.leDisplacement);
-    emit(Machine.JUMPIFop, Machine.trueRep, Machine.SBr, repeatAddr);
-
-    emit(Machine.POPop, 0, 0, first+last);
-
-    return null;
+        return null;
     }
 
     @Override
