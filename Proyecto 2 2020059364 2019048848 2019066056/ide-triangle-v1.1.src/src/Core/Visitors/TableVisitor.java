@@ -249,12 +249,10 @@ public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
     }
  public Object visitVarDeclarationBecomes(VarDeclarationBecomes aThis, Object o) { // 
         try{
-            addIdentifier(aThis.I.spelling,
-                            "KnownAddress",
-                            (aThis.entity != null?aThis.entity.size:0),
-                            ((KnownAddress)aThis.entity).address.level,
-                            ((KnownAddress)aThis.entity).address.displacement,
-                            -1);
+        addIdentifier(aThis.I.spelling,"KnownAddress",
+                    (aThis.entity != null?aThis.entity.size:0),
+               ((KnownAddress)aThis.entity).address.level,
+          ((KnownAddress)aThis.entity).address.displacement, -1);
         }catch(NullPointerException e){}
         aThis.E.visit(this, null);
       
