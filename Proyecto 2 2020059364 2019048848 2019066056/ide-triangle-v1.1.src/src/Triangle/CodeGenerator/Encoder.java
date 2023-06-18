@@ -1297,24 +1297,24 @@ public final class Encoder implements Visitor {
     @Override
     public Object visitForBecomesAST(ForBecomesAST aThis, Object o) {
         Frame frame = (Frame) o;
-        System.out.println("1");
+        
         int last = (Integer) aThis.E.CLC.visit(this, frame);
-        System.out.println("1.5");
+        
         frame = new Frame(frame, last);
-        System.out.println("2.0");
+        
         int first = (Integer) aThis.ForBecomes.E.visit(this, frame);
-        System.out.println("2");
+        
         aThis.ForBecomes.entity = new UnknownValue(first, frame.level, frame.size);
         frame = new Frame(frame, first);
         int jumpAddr, repeatAddr;
-        System.out.println("3");
+        
         jumpAddr = nextInstrAddr; 
         emit(Machine.JUMPop, 0, Machine.SBr, 0);
         repeatAddr = nextInstrAddr;
         aThis.DoC.C.visit(this, frame);
         emit(Machine.CALLop, Machine.SBr, Machine.PBr, Machine.succDisplacement); 
         int evaluate = nextInstrAddr;
-        System.out.println("4");
+        
         patch(jumpAddr, evaluate);
         emit(Machine.LOADop, 1, Machine.STr, -1);
         emit(Machine.LOADop, 1, Machine.STr, -3);
