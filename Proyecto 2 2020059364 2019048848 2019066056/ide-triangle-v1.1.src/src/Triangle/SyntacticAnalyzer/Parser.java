@@ -624,7 +624,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
             acceptIt();
             
             TimesCommand times = TimesDo(commandPos);
-
+            times.E=expressionAST;
             commandAST = new RepeatTimesCommand(expressionAST, times, commandPos);
 
             
@@ -640,7 +640,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
             if(currentToken.kind == Token.TIMES){
                 acceptIt();
                 TimesCommand times = TimesDo(commandPos);
-
+                times.E=expressionAST;
                 commandAST = new RepeatTimesCommand( expressionAST,times, commandPos);
 
             }
@@ -658,6 +658,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
             if(currentToken.kind == Token.TIMES){
                 acceptIt();
                 TimesCommand times = TimesDo(commandPos);
+                times.E=expressionAST;
      
                 commandAST = new RepeatTimesCommand( expressionAST,times, commandPos);
 
@@ -677,7 +678,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
                 acceptIt();
 
                 TimesCommand times = TimesDo(commandPos);
-
+                times.E=expressionAST;
                 commandAST = new RepeatTimesCommand( expressionAST,times, commandPos);
             }
              break;
@@ -692,6 +693,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
             if(currentToken.kind == Token.TIMES){
                 acceptIt();
                 TimesCommand times = TimesDo(commandPos);
+                times.E=expressionAST;
                 commandAST = new RepeatTimesCommand( expressionAST,times, commandPos);
 
             }
@@ -705,6 +707,7 @@ CaseLiteralCommand parseCaseLiteral() throws SyntaxError{
           if(currentToken.kind == Token.TIMES){
               acceptIt();
               TimesCommand times = TimesDo(commandPos);
+              times.E=expressionAST;
               commandAST = new RepeatTimesCommand( expressionAST,times, commandPos);
 
             }

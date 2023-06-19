@@ -201,13 +201,7 @@ public final class Encoder implements Visitor {
     return null;
   }
   
-  public Object visitTimesCommand(TimesCommand ast, Object o) {
-      Frame frame = (Frame) o;
-      ast.C.visit(this, frame);
-      return null;
-       
-  }  
-  
+
    //Autores: Celina Madrigal Murillo, María José Porras Maroto y Gabriel Mora Estribí
   @Override  
  public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object O){
@@ -1214,23 +1208,43 @@ public final class Encoder implements Visitor {
     }
 
     @Override
-    public Object visitRepeatTimesCommand(RepeatTimesCommand aThis, Object o) {
-        Frame frame = (Frame) o;
-        aThis.TimesC.visit(this, frame);
-        int jumpAddr, loopAddr;
+    public Object visitRepeatTimesCommand(RepeatTimesCommand ast, Object o) {
+       Frame frame = (Frame) o;
+        ast.TimesC.visit(this, frame);
+        // se evalua la expresion selectora
+        int expression = (Integer) ast.E.visit(this, frame);
+        int jmpAddr = nextInstrAddr;
+        //se evaluan los cases
 
-        jumpAddr = nextInstrAddr;
-        emit(Machine.JUMPop, 0, Machine.CBr, 0);
-        loopAddr = nextInstrAddr;
-        aThis.TimesC.visit(this, frame);
-        patch(jumpAddr, nextInstrAddr);
-        aThis.E.visit(this, frame);
-        emit(Machine.JUMPIFop, Machine.falseRep, Machine.CBr, loopAddr);
-        return null;
-        
-        
-        
+        //Se hace un patch para el jump del else
+        jmpAddr = nextInstrAddr;
+        emit(Machine.JUMPop, 0, Machine.CBr, jmpAddr);
+        patch(jmpAddr-1, nextInstrAddr);
+        //Se revisa si hay un else
+        if(ast.TimesC != null){
+            ast.TimesC.visit(this, frame);
+        }else{
+            emit(Machine.CASEerror, 0, 0, 0);
+        }
+        patch(jmpAddr, nextInstrAddr);
+        emit(Machine.POPop, 0, 0, expression);
+        return null;      
     }    
+    
+    
+  @Override
+    public Object visitTimesCommand(TimesCommand ast, Object o) {
+    
+        
+    
+     Frame frame = (Frame) o;
+        
+     
+     ast.C.visit(this, frame);
+        
+     return null;
+  }  
+  
     
     @Override
     public Object visitRepeatUntilAST(RepeatUntilAST aThis, Object o) {

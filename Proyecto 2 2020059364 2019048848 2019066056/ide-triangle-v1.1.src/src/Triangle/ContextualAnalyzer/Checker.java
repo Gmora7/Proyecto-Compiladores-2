@@ -1187,21 +1187,9 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     return null;    }
     
     @Override
-    public Object visitRepeatTimesCommand(RepeatTimesCommand ast, Object o) {
-         TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
-         if (eType.equals(StdEnvironment.integerType)) {
-            idTable.openScope();
-            ast.TimesC.visit(this, eType);
-            idTable.closeScope();
-        } else {
-          reporter.reportError("Integer Expression expected here",
-              "", ast.E.position);
-        }
-         
-         if (ast.TimesC != null) {
-            ast.TimesC.visit(this, null);
-    }
-        return null; 
+    public Object visitRepeatTimesCommand(RepeatTimesCommand aThis, Object o) {
+         aThis.TimesC.visit(this, aThis);
+        return null;
     }
     
     @Override
@@ -1237,9 +1225,22 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     }    
     
   @Override
-    public Object visitTimesCommand(TimesCommand aThis, Object o) {
-      aThis.C.visit(this, aThis);
-      return null;
+    public Object visitTimesCommand(TimesCommand ast, Object o) {
+         TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
+         if (eType.equals(StdEnvironment.integerType)) {
+            idTable.openScope();
+            ast.C.visit(this, eType);
+            idTable.closeScope();
+        } else {
+          reporter.reportError("Integer Expression expected here",
+              "", ast.E.position);
+        }
+         
+         if (ast.C != null) {
+            ast.C.visit(this, null);
+    }
+        return null; 
+       
     
   }
     @Override
