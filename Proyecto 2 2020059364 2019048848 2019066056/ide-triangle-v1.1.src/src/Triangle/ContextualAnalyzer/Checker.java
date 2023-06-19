@@ -344,11 +344,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     return null;
   }
 
-    public Object visitTimesCommand(TimesCommand ast, Object o) {
     
-    ast.C.visit(this, null);
-    return null;
-  }
 
   // Expressions
 
@@ -1191,8 +1187,21 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     return null;    }
     
     @Override
-    public Object visitRepeatTimesCommand(RepeatTimesCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Object visitRepeatTimesCommand(RepeatTimesCommand ast, Object o) {
+         TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
+         if (eType.equals(StdEnvironment.integerType)) {
+            idTable.openScope();
+            ast.TimesC.visit(this, eType);
+            idTable.closeScope();
+        } else {
+          reporter.reportError("Integer Expression expected here",
+              "", ast.E.position);
+        }
+         
+         if (ast.TimesC != null) {
+            ast.TimesC.visit(this, null);
+    }
+        return null; 
     }
     
     @Override
@@ -1226,6 +1235,13 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
           aThis.C.visit(this, null);
         return null;
     }    
+    
+  @Override
+    public Object visitTimesCommand(TimesCommand aThis, Object o) {
+      aThis.C.visit(this, aThis);
+      return null;
+    
+  }
     @Override
     public Object visitDoWhileCommand(DoWhileCommand aThis, Object o) {
          TypeDenoter eType = (TypeDenoter) aThis.E.visit(this, null);

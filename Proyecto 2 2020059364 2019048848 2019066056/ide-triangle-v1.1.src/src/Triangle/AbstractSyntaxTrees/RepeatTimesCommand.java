@@ -12,6 +12,8 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  */
 public class RepeatTimesCommand extends Command{
 
+    public Object I;
+
     
     public RepeatTimesCommand (Expression eAST, TimesCommand Times, SourcePosition thePosition) {
     super (thePosition);

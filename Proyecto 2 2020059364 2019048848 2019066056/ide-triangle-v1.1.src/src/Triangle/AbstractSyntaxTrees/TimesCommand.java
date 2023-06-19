@@ -16,10 +16,17 @@ public class TimesCommand extends Command {
     super (thePosition);
     C = cAST;
   }
+  
+  public TimesCommand (Expression expression,Command cAST, SourcePosition thePosition) {
+    super (thePosition);
+    C = cAST;
+    E=expression;
+  }
 
   public Object visit(Visitor v, Object o) {
     return v.visitTimesCommand(this, o);
   }
 
   public Command C;
+  public Expression E;
 }

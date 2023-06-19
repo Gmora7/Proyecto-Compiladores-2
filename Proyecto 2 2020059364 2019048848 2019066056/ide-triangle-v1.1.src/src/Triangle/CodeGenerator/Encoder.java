@@ -202,17 +202,10 @@ public final class Encoder implements Visitor {
   }
   
   public Object visitTimesCommand(TimesCommand ast, Object o) {
-    Frame frame = (Frame) o;
-    int jumpAddr, loopAddr;
-
-    jumpAddr = nextInstrAddr;
-    emit(Machine.JUMPop, 0, Machine.CBr, 0);
-    loopAddr = nextInstrAddr;
-    ast.C.visit(this, frame);
-    patch(jumpAddr, nextInstrAddr);
-
-    emit(Machine.JUMPIFop, Machine.trueRep, Machine.CBr, loopAddr);
-    return null;
+      Frame frame = (Frame) o;
+      ast.C.visit(this, frame);
+      return null;
+       
   }  
   
    //Autores: Celina Madrigal Murillo, María José Porras Maroto y Gabriel Mora Estribí
@@ -1207,6 +1200,7 @@ public final class Encoder implements Visitor {
 
     @Override
     public Object visitDoCommandAST(DoCommand aThis, Object o) {
+
         Frame frame = (Frame) o;
         aThis.C.visit(this, frame);
         return null; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -1221,7 +1215,21 @@ public final class Encoder implements Visitor {
 
     @Override
     public Object visitRepeatTimesCommand(RepeatTimesCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Frame frame = (Frame) o;
+        aThis.TimesC.visit(this, frame);
+        int jumpAddr, loopAddr;
+
+        jumpAddr = nextInstrAddr;
+        emit(Machine.JUMPop, 0, Machine.CBr, 0);
+        loopAddr = nextInstrAddr;
+        aThis.TimesC.visit(this, frame);
+        patch(jumpAddr, nextInstrAddr);
+        aThis.E.visit(this, frame);
+        emit(Machine.JUMPIFop, Machine.falseRep, Machine.CBr, loopAddr);
+        return null;
+        
+        
+        
     }    
     
     @Override
