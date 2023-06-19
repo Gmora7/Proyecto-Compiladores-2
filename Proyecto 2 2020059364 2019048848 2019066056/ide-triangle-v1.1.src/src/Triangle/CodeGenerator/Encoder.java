@@ -1266,7 +1266,7 @@ public final class Encoder implements Visitor {
     @Override
     public Object visitVarDeclarationBecomes(VarDeclarationBecomes aThis, Object o) {
         Frame frame = (Frame) o;
-        int size = (Integer) aThis.E.visit(this, frame);
+        int size = (Integer) aThis.Ex.visit(this, frame);
         aThis.entity = new KnownAddress(Machine.addressSize, frame.level, frame.size);
         writeTableDetails(aThis);
         return size;
